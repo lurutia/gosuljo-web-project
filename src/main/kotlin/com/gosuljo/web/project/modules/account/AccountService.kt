@@ -21,6 +21,7 @@ class AccountService(
     private val accountRepository: AccountRepository,
     private val authenticationManager: AuthenticationManager
 ): UserDetailsService{
+    @Transactional(readOnly = true)
     override fun loadUserByUsername(email: String): UserDetails {
         val account: Account? = accountRepository.findByEmail(email)
         if (account == null) {
@@ -31,19 +32,26 @@ class AccountService(
     }
 
     @Transactional
-    fun signUp(signUpForm: SignUpForm) {
+    fun signUp(signUpForm: SignUpForm): Account {
         if (accountRepository.existsAccountByEmail(signUpForm.email)) {
             throw CustomException(ErrorCode.NOT_FOUND_USERNAME_OR_WRONG_PASSWORD)
         }
         val account = Account(signUpForm.email, passwordEncoder.encode(signUpForm.password))
         accountRepository.save(account)
+
+        return account
     }
 
-    @Transactional(readOnly = true)
     fun login(loginForm: LoginForm) {
         val token = UsernamePasswordAuthenticationToken(loginForm.email, loginForm.password)
         val authentication: Authentication = authenticationManager.authenticate(token)
 
         SecurityContextHolder.getContext().authentication = authentication
+    }
+
+    fun login(account: Account) {
+        val userAccount = UserAccount(account)
+        val token = UsernamePasswordAuthenticationToken(userAccount, account.password, userAccount.authorities)
+        SecurityContextHolder.getContext().authentication = token
     }
 }

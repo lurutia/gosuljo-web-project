@@ -15,13 +15,14 @@ class AccountController(
     @PostMapping("/sign-up")
     fun signUp(@Valid @RequestBody signUpForm: SignUpForm):ResponseEntity<ResultVO> {
 
-        accountService.signUp(signUpForm)
+        val account: Account = accountService.signUp(signUpForm)
+        accountService.login(account)
 
         return ResponseEntity.ok(ResultVO())
     }
 
     @PostMapping("/login")
-    fun login(@Valid @RequestBody loginForm: LoginForm): ResponseEntity<Any> {
+    fun login(@Valid @RequestBody loginForm: LoginForm): ResponseEntity<ResultVO> {
         accountService.login(loginForm)
 
         return ResponseEntity.ok(ResultVO())
@@ -29,8 +30,8 @@ class AccountController(
 
     /** 로그인 됐는지 확인하는 용도 */
     @GetMapping("/authenticated")
-    fun authenticated(): ResponseEntity<Any> {
-        val resultVO: ResultVO = ResultVO()
+    fun authenticated(): ResponseEntity<ResultVO> {
+        val resultVO = ResultVO()
         resultVO.put("message", "Authenticated")
         return ResponseEntity.ok(resultVO)
     }
