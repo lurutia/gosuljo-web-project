@@ -11,7 +11,7 @@ import { ResultVO } from '../types/common'
 import NoneMenuLayout from '../layouts/NoneMenuLayout'
 
 
-const LoginWrapper = styled.div`
+const SignUpWrapper = styled.div`
     max-width: 620px;
     height: 700px;
     background-color: #FFFFFF;
@@ -22,17 +22,18 @@ const LoginWrapper = styled.div`
 `
 
 
-const Login: NextPageWithLayout = () => {
+const SignUp: NextPageWithLayout = () => {
     const router = useRouter();
 
     const myAxios = axios.create({
-        baseURL: serverUrl
+        baseURL: serverUrl,
     })
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
+            checkPassword: '',
         },
         onSubmit: values => {
             login(values);
@@ -40,7 +41,7 @@ const Login: NextPageWithLayout = () => {
     })
 
     const login = useCallback(async (obj) => {
-        await myAxios.post('/account/login', obj, {withCredentials: true}).then((res: AxiosResponse) => {
+        await myAxios.post('/account/sign-up', obj, {withCredentials: true}).then((res: AxiosResponse) => {
             router.push('/')
         }).catch((e: AxiosError) => {
             // server responded
@@ -60,23 +61,22 @@ const Login: NextPageWithLayout = () => {
     }, [])
 
     return (
-        <LoginWrapper>
+        <SignUpWrapper>
             <form onSubmit={formik.handleSubmit}>
                 <div>이메일</div>
                 <div><InputBasic name='email' value={formik.values.email} onChange={formik.handleChange}/></div>
                 <div>비밀번호</div>
                 <div><InputBasic name='password' value={formik.values.password} onChange={formik.handleChange} type='password'/></div>
-                <div>비밀번호를 잊으셨나요?</div>
-                <div><ButtonBasic>로그인</ButtonBasic></div>
-                <div><ButtonBasic designType='white'>회원가입</ButtonBasic></div>
+                <div><InputBasic name='checkPassword' value={formik.values.checkPassword} onChange={formik.handleChange} type='password'/></div>
+                <div><ButtonBasic>회원가입</ButtonBasic></div>
             </form>
-        </LoginWrapper>
+        </SignUpWrapper>
     )
 }
 
-export default Login;
+export default SignUp;
 
-Login.getLayout = (page: ReactElement) => {
+SignUp.getLayout = (page: ReactElement) => {
     return (
         <NoneMenuLayout>{page}</NoneMenuLayout>
     )
