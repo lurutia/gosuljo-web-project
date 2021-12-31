@@ -5,6 +5,7 @@ import com.gosuljo.web.project.infra.handler.ErrorCode
 import com.gosuljo.web.project.modules.account.form.LoginForm
 import com.gosuljo.web.project.modules.account.form.SignUpForm
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
@@ -23,7 +24,7 @@ class AccountService(
     override fun loadUserByUsername(email: String): UserDetails {
         val account: Account? = accountRepository.findByEmail(email)
         if (account == null) {
-            throw CustomException(ErrorCode.NOT_FOUND_USERNAME_OR_WRONG_PASSWORD)
+            throw BadCredentialsException(ErrorCode.NOT_FOUND_USERNAME_OR_WRONG_PASSWORD.code)
         }
 
         return UserAccount(account);
