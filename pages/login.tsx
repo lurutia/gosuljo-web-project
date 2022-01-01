@@ -9,6 +9,7 @@ import axios, {AxiosResponse, AxiosError} from 'axios'
 import { serverUrl } from '../config/const'
 import { ResultVO } from '../types/common'
 import NoneMenuLayout from '../layouts/NoneMenuLayout'
+import { defaultAxios } from '../lib/axios'
 
 
 const LoginWrapper = styled.div`
@@ -25,10 +26,6 @@ const LoginWrapper = styled.div`
 const Login: NextPageWithLayout = () => {
     const router = useRouter();
 
-    const myAxios = axios.create({
-        baseURL: serverUrl
-    })
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -40,7 +37,7 @@ const Login: NextPageWithLayout = () => {
     })
 
     const login = useCallback(async (obj) => {
-        await myAxios.post('/account/login', obj, {withCredentials: true}).then((res: AxiosResponse) => {
+        await defaultAxios.post('/account/login', obj).then((res: AxiosResponse) => {
             router.push('/')
         }).catch((e: AxiosError) => {
             // server responded
