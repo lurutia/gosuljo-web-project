@@ -8,8 +8,6 @@ const Wrapper = styled.div`
 
 const MainBannerWrapper = styled.div`
     width: 100%;
-    height: 720px;
-    background-color: #EEEFFE;
 `
 
 const Home: NextPageWithLayout = () => {

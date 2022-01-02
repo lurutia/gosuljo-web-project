@@ -3,7 +3,8 @@ import styled from "styled-components"
 import { NextPageWithLayout } from "../types/layout"
 
 const Wrapper = styled.div`
- `
+`
+
 const NavWrapper = styled.div`
     display: flex;
     justify-content: center;
@@ -33,10 +34,13 @@ const Li = styled.li`
 `
 
 const Main = styled.article`
+    height: auto;
+    min-height: calc(100vh - 140px - 44px);
+    background-color: #EEEFFE;
 `
 
 const Footer = styled.footer`
-    height: 270px;
+    height: 120px;
     background-color: #E6E9F0;
     display: flex;
     justify-content: center;
