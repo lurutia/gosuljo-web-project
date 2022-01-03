@@ -1,3 +1,4 @@
+import { RootState, useAppSelector } from 'app/store'
 import { ReactElement } from 'react'
 import styled from 'styled-components'
 import MainLayout from '../layouts/MainLayout'
@@ -11,10 +12,13 @@ const MainBannerWrapper = styled.div`
 `
 
 const Home: NextPageWithLayout = () => {
+    // The `state` arg is correctly typed as `RootState` already
+    const isLogin = useAppSelector((state: RootState) => state.account.isLogin)
+
     return (
         <Wrapper>
             <MainBannerWrapper>
-
+                { isLogin ? '로그인' : '로그아웃'}
             </MainBannerWrapper>
         </Wrapper>
     )

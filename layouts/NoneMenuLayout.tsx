@@ -25,7 +25,8 @@ const Logo = styled.div`
 `
 
 const Main = styled.article`
-    height: 720px;
+    height: auto;
+    min-height: calc(100vh - 420px - 270px);
 `
 
 const Footer = styled.footer`
