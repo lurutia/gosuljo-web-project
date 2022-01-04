@@ -28,8 +28,6 @@ const Login: NextPageWithLayout = () => {
         requestLogin
     } = useAccount()
 
-    // const dispatch = useAppDispatch()
-
     const formik = useFormik({
         initialValues: {
             email: '',

@@ -5,11 +5,8 @@ import styled from 'styled-components'
 import { useFormik  } from 'formik'
 import InputBasic from '../components/inputs/InputBasic'
 import ButtonBasic from '../components/buttons/ButtonBasic'
-import axios, {AxiosResponse, AxiosError} from 'axios'
-import { serverUrl } from '../config/const'
-import { ResultVO } from '../types/common'
 import NoneMenuLayout from '../layouts/NoneMenuLayout'
-import { defaultAxios } from '../lib/axios'
+import useAccount from 'app/modules/account/useAccount'
 
 
 const SignUpWrapper = styled.div`
@@ -24,7 +21,8 @@ const SignUpWrapper = styled.div`
 
 
 const SignUp: NextPageWithLayout = () => {
-    const router = useRouter();
+    const router = useRouter()
+    const { requestSignUp } = useAccount()
 
     const formik = useFormik({
         initialValues: {
@@ -33,28 +31,19 @@ const SignUp: NextPageWithLayout = () => {
             checkPassword: '',
         },
         onSubmit: values => {
-            login(values);
+            signUp(values);
         }
     })
 
-    const login = useCallback(async (obj) => {
-        await defaultAxios.post('/account/sign-up', obj).then((res: AxiosResponse) => {
-            router.push('/')
-        }).catch((e: AxiosError) => {
-            // server responded
-            if (e.response) {
-                const result = e.response.data as ResultVO
-                alert(result.errorMessage)
-            }
-            // request maded but no response
-            else if (e.request) {
-                alert('예기치 않은 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
-            }
-            // something happend in setting up
-            else {
-                alert('예기치 않은 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
-            }
-        })
+    const signUp = useCallback(async (obj) => {
+        const result = await requestSignUp(obj).unwrap()
+        console.log(result)
+        if (result.errorMessage) {
+            alert(result.errorMessage)
+            return
+        }
+
+        router.push('/')
     }, [])
 
     return (
