@@ -3,12 +3,9 @@ package com.gosuljo.web.project.infra.vo
 data class ResultVO(
     var errorMessage: String = ""
 ) {
-    var data: MutableMap<String, Any>? = null
+    val data: MutableMap<String, Any> = mutableMapOf()
 
     fun put(key: String, item: Any) {
-        if (this.data == null) {
-            this.data = mutableMapOf()
-        }
-        this.data!![key] = item
+        this.data[key] = item
     }
 }
