@@ -1,8 +1,23 @@
-import { combineReducers } from 'redux'
-import accountReducer from './modules/account/accountSlice'
+import { AnyAction, CombinedState, combineReducers } from 'redux'
+import { HYDRATE } from "next-redux-wrapper";
+import accountReducer, { AccountState } from './modules/account/accountSlice'
 
-const rootReducer = combineReducers({
-  account: accountReducer,
-})
+interface State {
+    account: AccountState;
+}
+
+const rootReducer = (state: State | undefined, action: AnyAction): CombinedState<State> => {
+    switch (action.type) {
+        case HYDRATE:
+            return { ...state, ...action.payload }
+        default: {
+            const combineReducer = combineReducers({
+                account: accountReducer,
+            })
+
+            return combineReducer(state, action)
+        }
+    }
+}
 
 export default rootReducer

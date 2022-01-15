@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { Store } from "redux";
 import logger from 'redux-logger'
 import rootReducer from './reducers'
 import thunk from 'redux-thunk'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+// import { composeWithDevTools } from '@reduxjs/toolkit/dist/devtoolsExtension'
+import { Context, createWrapper } from "next-redux-wrapper";
+import { AccountState } from './modules/account/accountSlice';
 
-export const store = configureStore({
+interface State {
+  account: AccountState;
+}
+
+const makeStore = (context: Context) => configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),
   devTools: process.env.NODE_ENV !== 'production',
@@ -12,10 +20,15 @@ export const store = configureStore({
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof rootReducer>
+export type AppDispatch = ReturnType<typeof makeStore>["dispatch"]
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+const wrapper = createWrapper<Store<State>>(makeStore, {
+  debug: process.env.NODE_ENV !== "production"
+});
+
+export default wrapper;

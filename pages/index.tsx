@@ -1,4 +1,5 @@
 import { RootState, useAppSelector } from 'app/store'
+import withAuth from 'lib/hoc/withAuth'
 import { ReactElement } from 'react'
 import styled from 'styled-components'
 import MainLayout from '../layouts/MainLayout'
@@ -24,10 +25,10 @@ const Home: NextPageWithLayout = () => {
     )
 }
 
-export default Home
-
 Home.getLayout = (page: ReactElement) => {
   return (
       <MainLayout>{page}</MainLayout>
   )
 }
+
+export default withAuth(Home)
