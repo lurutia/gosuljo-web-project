@@ -13,11 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @EnableWebSecurity
 class SecurityConfig: WebSecurityConfigurerAdapter() {
 
-    @Bean
-    fun PasswordEncoder(): PasswordEncoder {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder()
-    }
-
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
             .mvcMatchers(
