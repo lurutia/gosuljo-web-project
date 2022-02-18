@@ -1,0 +1,1 @@
+export const BOARD_CHANGE_STATE = 'board/BOARD_CHANGE_STATE'

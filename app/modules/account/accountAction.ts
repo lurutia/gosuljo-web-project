@@ -1,0 +1,1 @@
+export const ACCOUNT_CHANGE_STATE = 'account/ACCOUNT_CHANGE_STATE'

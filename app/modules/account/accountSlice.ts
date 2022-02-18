@@ -1,7 +1,8 @@
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ResultVO } from 'types/common'
 import { accountAPI } from './accountAPI'
-import { AxiosError } from 'axios'
+import { ACCOUNT_CHANGE_STATE } from './accountAction'
+import runFn from 'lib/runFn'
 
 export type LoginForm = {
     email: string
@@ -37,8 +38,6 @@ export const signUpAction = createAsyncThunk<
     return await runFn(() => accountAPI.signUp(obj), rejectWithValue)
 })
 
-const ACCOUNT_CHANGE_STATE = 'account/ACCOUNT_CHANGE_STATE'
-
 export const accountStateChange = createAction<AccountState>(ACCOUNT_CHANGE_STATE)
 
 export const accountSlice = createSlice({
@@ -69,16 +68,3 @@ export const accountSlice = createSlice({
 
 export default accountSlice.reducer
 
-const runFn = async (fn: Function, rejectedWithValue: any) => {
-    try {
-        return (await fn()).data as ResultVO;
-    } catch(e: any) {
-        let error: AxiosError<ResultVO> = e
-        console.log(error)
-        if (!error.response) {
-            throw e
-        }
-
-        return rejectedWithValue(error.response.data)
-    }
-}

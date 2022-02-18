@@ -7,9 +7,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 // import { composeWithDevTools } from '@reduxjs/toolkit/dist/devtoolsExtension'
 import { Context, createWrapper } from "next-redux-wrapper";
 import { AccountState } from './modules/account/accountSlice';
+import { BoardState } from './modules/board/boardSlice';
 
 interface State {
-  account: AccountState;
+  account: AccountState
+  board: BoardState
 }
 
 const makeStore = (context: Context) => configureStore({

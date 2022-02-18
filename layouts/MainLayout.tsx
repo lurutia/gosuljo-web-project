@@ -82,7 +82,7 @@ const MainLayout: NextPageWithLayout = ({children}) => {
             <Footer>
                 <FooterContentWrapper>
                     <FooterContent>
-                        Copyright © 2022 Gosuljo 모든 권리 보유.
+                        Copyright © 2022 Gosuljo All rights reserved.
                     </FooterContent>
                     <FooterContent>
                         주소: my home
