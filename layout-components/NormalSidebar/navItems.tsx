@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronRight, faGauge, faGear } from "@fortawesome/free-solid-svg-icons"
+import { faArrowDown19, faGauge, faGear, faPalette, faSquare, faSquareCaretDown, faSquareUpRight, faTabletButton } from "@fortawesome/free-solid-svg-icons"
 
 export type NavItem = {
     link?: string
@@ -25,23 +25,32 @@ const navItems: NavItems = [
     },
     {
         "label": "UI Element",
+        "icon": <FontAwesomeIcon icon={faPalette} />,
         "content": [
+            {
+                "label": "Card",
+                "link": "/element/card",
+                "icon": <FontAwesomeIcon icon={faSquare} />,
+            },
             {
                 "label": "Buttons",
                 "link": "/element/buttons",
-                "icon": <FontAwesomeIcon icon={faGear} />,
+                "icon": <FontAwesomeIcon icon={faTabletButton} />,
             },
             {
                 "label": "Dropdowns",
                 "link": "/element/dropdowns",
+                "icon": <FontAwesomeIcon icon={faSquareCaretDown} />,
             },
             {
                 "label": "Modals",
                 "link": "/element/modals",
+                "icon": <FontAwesomeIcon icon={faSquareUpRight} />,
             },
             {
                 "label": "Paginations",
                 "link": "/element/paginations",
+                "icon": <FontAwesomeIcon icon={faArrowDown19} />,
             },
         ]
     },
