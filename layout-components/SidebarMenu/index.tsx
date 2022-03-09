@@ -67,7 +67,6 @@ interface INavIcon {
 const NavIcon = styled.div<INavIcon>`
     display: inline-block;
     width: 20px;
-    /* text-align: center; */
     .fa-angle-left, .fa-angle-right {
         padding-top: 3px;
     }
@@ -81,31 +80,38 @@ const SidebarMenu: React.FC<Props> = (props) => {
         idx,
     } = props
 
-    return (
-        <>
-            <NavigationLi>
-                {navItem.content ? 
+    
+    const recursiveItemList = (navItem: NavItem): any => {
+        if (navItem.content) {
+            return (
                 <>
                     <NavigationAtag onClick={(e) => openSubMenu(e, idx)}>
                         <NavIcon>{navItem.icon}</NavIcon><NavTitle>{navItem.label}</NavTitle><NavIcon align="right"><FontAwesomeIcon size="sm" icon={faChevronRight} /></NavIcon>
                     </NavigationAtag>
                     <NavigationSubUl open={navItem.open}>
                         {navItem.content.map(content => 
-                        <>
                             <NavigationSubLi>
                                 <NavigationSubAtag href={content.link}>
                                     <NavIcon>{content.icon}</NavIcon>{content.label}
                                 </NavigationSubAtag>
                             </NavigationSubLi>
-                        </>
                         )}
                     </NavigationSubUl>
                 </>
-                :
-                <NavigationAtag href="javascript:void(0);">
+            )
+        } else {
+            return (
+                <NavigationAtag href="javascript:;">
                     <NavIcon>{navItem.icon}</NavIcon><NavTitle>{navItem.label}</NavTitle>
                 </NavigationAtag>
-                }
+            )
+        }
+    }
+
+    return (
+        <>
+            <NavigationLi>
+                {recursiveItemList(navItem)}
             </NavigationLi>
         </>
     )

@@ -20,33 +20,63 @@ type NavItems = NavItem[]
 const navItems: NavItems = [
     {
         "label": "Dashboard",
-        "link": "index.html",
+        "link": "/element",
         "icon": <FontAwesomeIcon icon={faGauge} />
     },
     {
         "label": "UI Element",
-        "open": false,
         "content": [
             {
                 "label": "Buttons",
-                "link": "#",
-                "icon": <FontAwesomeIcon icon={faGear} />
+                "link": "/element/buttons",
+                "icon": <FontAwesomeIcon icon={faGear} />,
             },
             {
-                "label": "Inputs",
-                "link": "#",
-            }
+                "label": "Dropdowns",
+                "link": "/element/dropdowns",
+            },
+            {
+                "label": "Modals",
+                "link": "/element/modals",
+            },
+            {
+                "label": "Paginations",
+                "link": "/element/paginations",
+            },
         ]
     },
     {
-        "label": "Editors",
-        "open": false,
+        "label": "Form Element",
         "content": [
             {
-                "label": "form",
-                "link": "#",
-            }
+                "label": "Input",
+                "link": "/element/input",
+            },
+            {
+                "label": "Select",
+                "link": "/element/select",
+            },
+            {
+                "label": "Radio",
+                "link": "/element/radio",
+            },
+            {
+                "label": "Checkbox",
+                "link": "/element/checkbox",
+            },
+            {
+                "label": "Textarea",
+                "link": "/element/textarea",
+            },
         ]
+    },
+    {
+        "label": "Table",
+        "link": "/element/table"
+    },
+    {
+        "label": "Chart",
+        "link": "/element/chart"
     },
     {
         "label": "Typography",
@@ -54,4 +84,4 @@ const navItems: NavItems = [
     },
 ]
 
-export default navItems;
+export default navItems
