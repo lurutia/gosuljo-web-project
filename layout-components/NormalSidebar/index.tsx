@@ -16,7 +16,6 @@ const Sidebar = styled.aside`
     width: 240px;
     min-height: calc(100vh - 140px - 44px);
     background: #293949;
-    transition: all .3s ease-in-out;
     float: left;
 `;
 

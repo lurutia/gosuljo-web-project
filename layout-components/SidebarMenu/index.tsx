@@ -22,7 +22,6 @@ const NavigationAtag = styled.a<INavigationAtag>`
     display: block;
     padding: 18px 0 18px 25px;
     font-size: 12px;
-    transition: all 200ms ease-in;
     &:hover {
         color: #1abc9c;
     }
@@ -47,7 +46,6 @@ const NavigationSubAtag = styled.a<INavigationSubAtag>`
     color: ${props => props.active ? '#1abc9c':'#aeb2b7'};
     display: block;
     padding: 18px 0 18px 25px;
-    transition: all 200ms ease-in;
     &:hover {
         color: #1abc9c;
     }

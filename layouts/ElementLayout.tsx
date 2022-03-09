@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 
 const Main = styled.article`
     height: auto;
-    width: calc(100vw - 240px);
+    width: calc(100vw - 240px - 17px);
     min-height: calc(100vh - 140px - 44px);
     background-color: #EEEFFE;
     float: left;
