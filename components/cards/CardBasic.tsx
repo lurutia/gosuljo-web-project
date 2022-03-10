@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-interface Props {
+interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 const Card = styled.div`
@@ -26,10 +26,11 @@ const CardFooter = styled.div`
 const CardBasic: React.FC<Props>  = (props) => {
     const {
         children,
+        ...rest
     } = props
 
     return (
-        <Card>
+        <Card {...rest as any}>
             <CardHeader>
 
             </CardHeader>
