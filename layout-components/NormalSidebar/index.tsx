@@ -31,7 +31,7 @@ const NormalSidebar: NextPageWithLayout = ({children}) => {
     
     const [navItems, setNavItems] = useState(navItemsData);
 
-    const openSubMenu = (e: MouseEvent<HTMLAnchorElement>, idx: number) => {
+    const openSubMenu = (e: MouseEvent<HTMLButtonElement>, idx: number) => {
         e.stopPropagation()
         const nextNavItems = produce(navItems, next => {
             next[idx].open = !next[idx].open
@@ -50,6 +50,7 @@ const NormalSidebar: NextPageWithLayout = ({children}) => {
                                         navItem={item}
                                         openSubMenu={openSubMenu}
                                         idx={idx}
+                                        key={item.label}
                                     />
                                 )}
                             </NavigationUl>

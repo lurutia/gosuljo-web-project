@@ -6,7 +6,7 @@ import { NavItem } from "layout-components/NormalSidebar/navItems"
 
 interface Props {
     navItem: NavItem
-    openSubMenu(e: MouseEvent<HTMLAnchorElement>, idx: number): void
+    openSubMenu(e: MouseEvent<HTMLButtonElement>, idx: number): void
     idx: number
 }
 
@@ -17,7 +17,7 @@ const NavigationLi = styled.li`
 interface INavigationAtag {
     active?: boolean
 }
-const NavigationAtag = styled.a<INavigationAtag>`
+const NavigationAtag = styled.button<INavigationAtag>`
     color: ${props => props.active ? '#1abc9c':'#aeb2b7'};
     display: block;
     padding: 18px 0 18px 25px;
@@ -84,11 +84,13 @@ const SidebarMenu: React.FC<Props> = (props) => {
             return (
                 <>
                     <NavigationAtag onClick={(e) => openSubMenu(e, idx)}>
-                        <NavIcon>{navItem.icon}</NavIcon><NavTitle>{navItem.label}</NavTitle><NavIcon align="right"><FontAwesomeIcon size="sm" icon={faChevronRight} /></NavIcon>
+                        <NavIcon>{navItem.icon}</NavIcon>
+                        <NavTitle>{navItem.label}</NavTitle>
+                        <NavIcon align="right"><FontAwesomeIcon size="sm" icon={faChevronRight} /></NavIcon>
                     </NavigationAtag>
                     <NavigationSubUl open={navItem.open}>
                         {navItem.content.map(content => 
-                            <NavigationSubLi>
+                            <NavigationSubLi key={content.label}>
                                 <NavigationSubAtag href={content.link}>
                                     <NavIcon>{content.icon}</NavIcon>{content.label}
                                 </NavigationSubAtag>
@@ -99,7 +101,7 @@ const SidebarMenu: React.FC<Props> = (props) => {
             )
         } else {
             return (
-                <NavigationAtag href="javascript:;">
+                <NavigationAtag>
                     <NavIcon>{navItem.icon}</NavIcon><NavTitle>{navItem.label}</NavTitle>
                 </NavigationAtag>
             )
